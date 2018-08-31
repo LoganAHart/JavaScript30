@@ -22,25 +22,62 @@ const people = ['Beck, Glenn', 'Becker, Carl', 'Beckett, Samuel', 'Beddoes, Mick
 
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's
+const fifteen = inventors.filter(inventor => inventor.year >= 1500 && inventor.year < 1600);
+console.log(fifteen);
 
 // Array.prototype.map()
 // 2. Give us an array of the inventors' first and last names
+const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+console.log(fullNames);
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest
+const birthOrder = inventors.sort((a, b) => a.year - b.year);
+console.table(birthOrder);
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
+const totalYears = inventors.reduce((a, b) => a + (b.passed - b.year), 0);
+console.log(totalYears);
 
 // 5. Sort the inventors by years lived
+const lifeSpan = inventors.sort((a, b) => {
+  const lifeSpanA = a.passed - a.year;
+  const lifeSpanB = b.passed - b.year;
+  return lifeSpanB - lifeSpanA;
+});
+console.table(lifeSpan);
 
 // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
 // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
-
+/*
+//only use on the page linked above
+const category = document.querySelector('.mw-category');
+const links = [...category.querySelectorAll('a')];
+const de = links
+  .map(link => link.textContent)
+  .filter(boulevard => boulevard.includes('de'));
+console.log(de);
+*/
 
 // 7. sort Exercise
 // Sort the people alphabetically by last name
+const alpha = people.sort((a, b) => {
+  const [aFirst, aLast] = a.split(', ');
+  const [bFirst, bLast] = b.split(', ');
+  return aLast.charCodeAt(0) - bLast.charCodeAt(0);
+});
+console.log(alpha);
 
 // 8. Reduce Exercise
 // Sum up the instances of each of these
 const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+const transportation = data.reduce((a, b) => {
+  if (a[b]) {
+    a[b] += 1;
+  } else {
+    a[b] = 1;
+  }
+  return a;
+}, {});
+console.log(transportation);
